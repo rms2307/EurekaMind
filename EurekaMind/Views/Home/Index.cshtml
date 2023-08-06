@@ -1,0 +1,30 @@
+﻿@model QuestionViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Bem vindo ao EurekaMind</h1>
+    <form method="post">
+        <input type="text" name="pergunta" placeholder="digite aqui sua pergunta" />
+        <input type="submit" value="Enviar" />
+    </form>
+
+    @if (@Model?.Question != null)
+    {
+        <br />
+        <h1>Você perguntou: @Model.Question</h1>
+        <br />
+        <br />
+        <h2>@Model.Answer</h2>
+    }
+    @if (Model?.Error != null)
+    {
+        <br />
+        <h1>Você perguntou: @Model.Question</h1>
+        <br />
+        <br />
+        <h2 style="color:red">Houve um erro na comunicação</h2>
+        <h2 style="color:red">@Model.Error</h2>
+    }
+</div>
