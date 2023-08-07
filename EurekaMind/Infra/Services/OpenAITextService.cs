@@ -15,7 +15,14 @@ namespace EurekaMind.Infra.Services
 
         public async Task<OpenAIResponse> CompletePrompt(OpenAIRequest request)
         {
-            return await _openAIClient.CompletePrompt(request);
+            try
+            {
+                return await _openAIClient.CompletePrompt(request);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

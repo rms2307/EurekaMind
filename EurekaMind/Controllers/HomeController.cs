@@ -25,22 +25,22 @@ namespace EurekaMind.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(string question)
         {
-            OpenAIRequest openAIRequest = new(question);
+            List<Message> messages = new()
+            {
+                new()
+                {
+                    Content = question,
+                    Role = "user"
+                }
+            };
+            OpenAIRequest openAIRequest = new(messages);
             OpenAIResponse openAIResponse = await _openAITextService.CompletePrompt(openAIRequest);
 
             QuestionViewModel model = new();
             if (openAIResponse != null)
             {
-                if (openAIResponse.Error != null)
-                {
-                    model.Question = question;
-                    model.Error = openAIResponse.Error.Message;
-                }
-                else if (openAIResponse.Choices != null)
-                {
-                    model.Question = question;
-                    model.Answer = openAIResponse.Choices.Select(a => a.Text).FirstOrDefault() ?? string.Empty;
-                }
+                model.Question = question;
+                model.Answer = openAIResponse.Choices[0].Message.Content;
             }
 
             return View(model);

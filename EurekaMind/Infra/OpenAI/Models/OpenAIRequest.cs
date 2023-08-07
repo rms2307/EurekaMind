@@ -4,19 +4,19 @@ namespace EurekaMind.Infra.OpenAI.Models
 {
     public class OpenAIRequest
     {
-        public OpenAIRequest(string question)
+        public OpenAIRequest(List<Message> messages)
         {
-            Model = "text-davinci-003";
-            Prompt = question;
+            Model = "gpt-3.5-turbo";
+            Messages = messages;
             Temperature = 0f;
-            MaxTokens = 500;
+            MaxTokens = 100;
         }
 
         [JsonPropertyName("model")]
         public string Model { get; }
 
-        [JsonPropertyName("prompt")]
-        public string Prompt { get; set; }
+        [JsonPropertyName("messages")]
+        public List<Message> Messages { get; set; }
 
         [JsonPropertyName("temperature")]
         public float Temperature { get; }

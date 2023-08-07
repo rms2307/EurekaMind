@@ -5,7 +5,7 @@ namespace EurekaMind.Infra.Clients
 {
     public interface IOpenAIClient
     {
-        [Post("/completions")]
+        [Post("/chat/completions")]
         Task<OpenAIResponse> CompletePrompt(OpenAIRequest request);
     }
 }
