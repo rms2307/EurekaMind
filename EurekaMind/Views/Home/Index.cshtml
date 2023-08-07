@@ -1,28 +1,59 @@
-﻿@model QuestionViewModel
-@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<style>
+    .chat-box {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .message {
+        margin: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        max-width: 70%;
+    }
+
+        .message.sent {
+            align-self: flex-end;
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .message.received {
+            background-color: #f1f1f1;
+        }
+</style>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <h1 class="display-4 text-center">Bem vindo ao EurekaMind</h1>
-            <form method="post" class="text-center">
-                <div class="form-group">
-                    <input type="text" name="question" placeholder="digite aqui sua pergunta" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Enviar" class="btn btn-primary" />
+
+            <div class="chat-box">
+                @if (@Model?.Question != null)
+                {
+                        <div class="message sent">
+                            <p>@Model.Question</p>
+                        </div>
+                        <div class="message received">
+                            <p>@Model.Answer</p>
+                        </div>
+                }
+            </div>
+
+            <form method="post" class="text-center mt-4">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="form-group">
+                            <input type="text" name="question" placeholder="digite aqui sua pergunta" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <input type="submit" value="Enviar" class="btn btn-primary btn-block" />
+                        </div>
+                    </div>
                 </div>
             </form>
-
-            @if (@Model?.Question != null)
-            {
-                <br />
-                <h3 class="text-center">Você perguntou: @Model.Question</h3>
-                <br />
-                <br />
-                <h4 class="text-center">@Model.Answer</h4>
-            }
         </div>
     </div>
 </div>
